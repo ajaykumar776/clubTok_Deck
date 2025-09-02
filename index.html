@@ -16,7 +16,22 @@
             display: none;
             width: 100%;
             height: 100%;
-            padding: 5% 8%;
+            /* Responsive padding */
+            padding: 1.5rem; /* p-6 */
+        }
+        @media (min-width: 640px) { /* sm */
+            .slide {
+                padding: 3rem; /* p-12 */
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .slide {
+                padding-left: 6rem; /* px-24 */
+                padding-right: 6rem;
+            }
+        }
+
+        .slide {
             box-sizing: border-box;
             opacity: 0;
             transition: opacity 0.6s ease-in-out;
@@ -25,6 +40,7 @@
             left: 0;
             flex-direction: column;
             justify-content: center;
+            overflow-y: auto; /* Allow scrolling on small screens */
         }
         .slide.active {
             display: flex;
@@ -32,17 +48,28 @@
         }
         .slide-container {
             width: 100%;
-            max-width: 1200px;
-            height: 90vh;
-            max-height: 700px;
+            height: 100vh; /* Full viewport height */
+            /* Remove fixed max-width and max-height for mobile */
             position: relative;
-            margin: 5vh auto;
-            background-color: #1A1A2E;
-            border-radius: 20px;
+            background-color: #0F0F1A; /* Match body */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #303050;
         }
+        
+        /* Apply container styles on larger screens */
+        @media (min-width: 1024px) {
+             .slide-container {
+                width: 90%;
+                max-width: 1200px;
+                height: 90vh;
+                max-height: 700px;
+                margin: 5vh auto;
+                background-color: #1A1A2E;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                border: 1px solid #303050;
+             }
+        }
+        
         .progress-bar {
             position: absolute;
             bottom: 0;
@@ -53,7 +80,7 @@
         }
         .nav-button {
             position: absolute;
-            bottom: 25px;
+            bottom: 1.5rem; /* 24px */
             background-color: rgba(255,255,255,0.1);
             color: white;
             padding: 10px 15px;
@@ -61,39 +88,23 @@
             cursor: pointer;
             transition: background-color 0.3s;
             border: 1px solid rgba(255,255,255,0.2);
+            z-index: 10;
         }
         .nav-button:hover {
             background-color: rgba(255,255,255,0.2);
         }
-        #prevBtn {
-            right:150px;   /* instead of right */
-            bottom: 25px;
-        }
-        #nextBtn {
-            right: 25px;
-            bottom: 25px;
-        }
-
+        #prevBtn { right: 13rem; } /* 80px */
+        #nextBtn { right: 1.5rem; } /* 24px */
         .slide-counter {
             position: absolute;
-            bottom: 30px;
-            left: 30px;
+            bottom: 1.75rem; /* 28px */
+            left: 1.5rem; /* 24px */
             font-size: 0.9em;
             color: #9090A0;
+            z-index: 10;
         }
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: -0.05em;
-            line-height: 1.1;
-        }
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
+
         .tagline {
-            font-size: 1.25rem;
             color: #A0A0C0;
             margin-top: 1rem;
         }
@@ -118,10 +129,12 @@
         }
         .fade-in {
             animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Start hidden for animation */
         }
         .fade-in-delay-1 { animation-delay: 0.2s; }
         .fade-in-delay-2 { animation-delay: 0.4s; }
         .fade-in-delay-3 { animation-delay: 0.6s; }
+        .fade-in-delay-4 { animation-delay: 0.8s; }
 
     </style>
 </head>
@@ -133,28 +146,28 @@
         <section class="slide active" id="slide-1">
             <div class="text-center">
                 <span class="text-indigo-400 font-bold fade-in">PITCH DECK</span>
-                <h1 class="mt-4 fade-in fade-in-delay-1">ClubTok</h1>
-                <p class="tagline fade-in fade-in-delay-2">The Future of Nightlife. <br> Discover, Experience, and Book Your Night Out, <span class="highlight">Live.</span></p>
+                <h1 class="mt-4 fade-in fade-in-delay-1 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter">ClubTok</h1>
+                <p class="tagline fade-in fade-in-delay-2 text-lg sm:text-xl lg:text-2xl">The Future of Nightlife. <br> Discover, Experience, and Book Your Night Out, <span class="highlight">Live.</span></p>
             </div>
         </section>
 
         <!-- Slide 2: The Problem -->
         <section class="slide" id="slide-2">
             <div>
-                <h2 class="fade-in">The Nightlife Experience is <span class="highlight">Fragmented.</span></h2>
-                <p class="text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">Both party-goers and venues face significant challenges.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">The Nightlife Experience is <span class="highlight">Fragmented.</span></h2>
+                <p class="text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">Both party-goers and venues face significant challenges.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 sm:mt-12">
                     <div class="fade-in fade-in-delay-2">
-                        <h3 class="text-2xl font-bold text-white mb-4">For Users:</h3>
-                        <ul class="space-y-3 list-disc list-inside text-lg text-gray-300">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">For Users:</h3>
+                        <ul class="space-y-3 list-disc list-inside text-base sm:text-lg text-gray-300">
                             <li><span class="font-semibold">"Vibe" Guesswork:</span> Relying on outdated reviews and photos.</li>
                             <li><span class="font-semibold">Fragmented Journey:</span> Juggling multiple apps for discovery, reviews, and booking.</li>
                             <li><span class="font-semibold">Fear of Missing Out (FOMO):</span> Hard to know where the real party is.</li>
                         </ul>
                     </div>
                     <div class="fade-in fade-in-delay-3">
-                        <h3 class="text-2xl font-bold text-white mb-4">For Venues:</h3>
-                        <ul class="space-y-3 list-disc list-inside text-lg text-gray-300">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-4">For Venues:</h3>
+                        <ul class="space-y-3 list-disc list-inside text-base sm:text-lg text-gray-300">
                            <li><span class="font-semibold">Ineffective Marketing:</span> Static ads fail to capture live energy.</li>
                            <li><span class="font-semibold">Reaching the Right Crowd:</span> Difficulty attracting specific demographics.</li>
                            <li><span class="font-semibold">Filling Off-Peak Nights:</span> Struggling to create buzz during weekdays.</li>
@@ -167,16 +180,16 @@
         <!-- Slide 3: The Opportunity -->
         <section class="slide" id="slide-3">
             <div>
-                 <h2 class="fade-in">A <span class="highlight">Multi-Billion Dollar</span> Market Awaits.</h2>
-                <p class="text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">The Indian market shows a clear demand for a modern, unified solution.</p>
-                <div class="flex flex-col md:flex-row gap-8 mt-12">
+                 <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">A <span class="highlight">Multi-Billion Dollar</span> Market Awaits.</h2>
+                <p class="text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">The Indian market shows a clear demand for a modern, unified solution.</p>
+                <div class="flex flex-col md:flex-row gap-8 mt-8 sm:mt-12">
                     <div class="card fade-in fade-in-delay-2">
-                        <h3 class="text-xl font-bold">Booming Nightlife Economy</h3>
-                        <p class="mt-2 text-gray-300">India's urban nightlife and event market is projected to grow significantly, driven by a young, experience-seeking population.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Booming Nightlife Economy</h3>
+                        <p class="mt-2 text-gray-300 text-base sm:text-lg">India's urban nightlife and event market is projected to grow significantly, driven by a young, experience-seeking population.</p>
                     </div>
                     <div class="card fade-in fade-in-delay-3">
-                        <h3 class="text-xl font-bold">Demand for Authenticity</h3>
-                        <p class="mt-2 text-gray-300">Gen Z & Millennials trust user-generated, short-form video content over traditional advertising, creating a perfect entry point for ClubTok.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Demand for Authenticity</h3>
+                        <p class="mt-2 text-gray-300 text-base sm:text-lg">Gen Z & Millennials trust user-generated, short-form video content over traditional advertising, creating a perfect entry point for ClubTok.</p>
                     </div>
                 </div>
             </div>
@@ -186,23 +199,23 @@
         <!-- Slide 4: The Solution -->
         <section class="slide" id="slide-4">
             <div>
-                <h2 class="text-center fade-in">Introducing <span class="highlight">ClubTok.</span></h2>
-                <p class="text-center text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">The all-in-one social nightlife platform that combines discovery, live experience, and booking.</p>
-                <div class="flex flex-col md:flex-row gap-8 mt-12 text-center">
+                <h2 class="text-center fade-in text-3xl sm:text-4xl font-bold tracking-tight">Introducing <span class="highlight">ClubTok.</span></h2>
+                <p class="text-center text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">The all-in-one social nightlife platform that combines discovery, live experience, and booking.</p>
+                <div class="flex flex-col md:flex-row gap-6 mt-8 sm:mt-12 text-center">
                     <div class="card fade-in fade-in-delay-1">
                         <div class="text-4xl mb-4">📱</div>
-                        <h3 class="text-xl font-bold">Social & Video Feed</h3>
-                        <p class="mt-2 text-gray-300">A real-time feed of short videos from clubs, posted by users and venues.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Social & Video Feed</h3>
+                        <p class="mt-2 text-gray-300 text-base">A real-time feed of short videos from clubs, posted by users and venues.</p>
                     </div>
                     <div class="card fade-in fade-in-delay-2">
                         <div class="text-4xl mb-4">📍</div>
-                        <h3 class="text-xl font-bold">Live "Vibe Check"</h3>
-                        <p class="mt-2 text-gray-300">See the current crowd, hear the music, and feel the energy before you go.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Live "Vibe Check"</h3>
+                        <p class="mt-2 text-gray-300 text-base">See the current crowd, hear the music, and feel the energy before you go.</p>
                     </div>
                     <div class="card fade-in fade-in-delay-3">
                         <div class="text-4xl mb-4">🎟️</div>
-                        <h3 class="text-xl font-bold">Seamless Booking</h3>
-                        <p class="mt-2 text-gray-300">Integrated ticketing for events, guest lists, and table reservations.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Seamless Booking</h3>
+                        <p class="mt-2 text-gray-300 text-base">Integrated ticketing for events, guest lists, and table reservations.</p>
                     </div>
                 </div>
             </div>
@@ -211,37 +224,40 @@
         <!-- Slide 5: How It Works -->
         <section class="slide" id="slide-5">
             <div>
-                <h2 class="fade-in">A Simple, <span class="highlight">Engaging Journey.</span></h2>
-                <div class="mt-12 flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
+                <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">A Simple, <span class="highlight">Engaging Journey.</span></h2>
+                <div class="mt-12 flex flex-col md:flex-row items-center justify-between gap-4">
                     
                     <div class="flex items-center flex-col text-center fade-in fade-in-delay-1">
-                        <div class="w-24 h-24 bg-indigo-500 rounded-full flex items-center justify-center text-4xl">🗺️</div>
-                        <h3 class="mt-4 text-xl font-semibold">1. Discover</h3>
-                        <p class="text-gray-400">Find venues & events on an interactive map.</p>
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-indigo-500 rounded-full flex items-center justify-center text-3xl sm:text-4xl">🗺️</div>
+                        <h3 class="mt-4 text-lg sm:text-xl font-semibold">1. Discover</h3>
+                        <p class="text-gray-400 text-sm sm:text-base">Find venues & events.</p>
                     </div>
                     
+                    <div class="text-gray-500 text-3xl md:hidden fade-in fade-in-delay-1 my-2">↓</div>
                     <div class="text-gray-500 text-3xl hidden md:block fade-in fade-in-delay-1">→</div>
 
                     <div class="flex items-center flex-col text-center fade-in fade-in-delay-2">
-                        <div class="w-24 h-24 bg-purple-500 rounded-full flex items-center justify-center text-4xl">🎬</div>
-                        <h3 class="mt-4 text-xl font-semibold">2. Vibe Check</h3>
-                        <p class="text-gray-400">Watch live videos to check the atmosphere.</p>
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-purple-500 rounded-full flex items-center justify-center text-3xl sm:text-4xl">🎬</div>
+                        <h3 class="mt-4 text-lg sm:text-xl font-semibold">2. Vibe Check</h3>
+                        <p class="text-gray-400 text-sm sm:text-base">Watch live videos.</p>
                     </div>
                     
+                    <div class="text-gray-500 text-3xl md:hidden fade-in fade-in-delay-2 my-2">↓</div>
                     <div class="text-gray-500 text-3xl hidden md:block fade-in fade-in-delay-2">→</div>
 
                     <div class="flex items-center flex-col text-center fade-in fade-in-delay-3">
-                        <div class="w-24 h-24 bg-pink-500 rounded-full flex items-center justify-center text-4xl">🎟️</div>
-                        <h3 class="mt-4 text-xl font-semibold">3. Book</h3>
-                        <p class="text-gray-400">Secure your entry with one tap.</p>
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-pink-500 rounded-full flex items-center justify-center text-3xl sm:text-4xl">🎟️</div>
+                        <h3 class="mt-4 text-lg sm:text-xl font-semibold">3. Book</h3>
+                        <p class="text-gray-400 text-sm sm:text-base">Secure your entry.</p>
                     </div>
-
+                    
+                    <div class="text-gray-500 text-3xl md:hidden fade-in fade-in-delay-3 my-2">↓</div>
                     <div class="text-gray-500 text-3xl hidden md:block fade-in fade-in-delay-3">→</div>
 
                     <div class="flex items-center flex-col text-center fade-in fade-in-delay-4">
-                        <div class="w-24 h-24 bg-rose-500 rounded-full flex items-center justify-center text-4xl">✨</div>
-                        <h3 class="mt-4 text-xl font-semibold">4. Share</h3>
-                        <p class="text-gray-400">Post your own videos and become a trendsetter.</p>
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-rose-500 rounded-full flex items-center justify-center text-3xl sm:text-4xl">✨</div>
+                        <h3 class="mt-4 text-lg sm:text-xl font-semibold">4. Share</h3>
+                        <p class="text-gray-400 text-sm sm:text-base">Post your videos.</p>
                     </div>
                 </div>
             </div>
@@ -250,20 +266,20 @@
         <!-- Slide 6: Go-To-Market Strategy -->
         <section class="slide" id="slide-6">
             <div>
-                <h2 class="fade-in">Launch Strategy: <span class="highlight">Hyper-Local Domination.</span></h2>
-                <p class="text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">Our plan focuses on creating high density engagement in one key market before scaling.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">Launch Strategy: <span class="highlight">Hyper-Local Domination.</span></h2>
+                <p class="text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">Our plan focuses on creating high density engagement in one key market before scaling.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 sm:mt-12">
                     <div class="card fade-in fade-in-delay-1">
-                        <h3 class="text-xl font-bold">Phase 1: Bengaluru Pilot</h3>
-                        <p class="mt-2 text-gray-300">Launch exclusively in high-traffic areas like Koramangala & Indiranagar. Onboard the top 30 venues and partner with local nightlife influencers.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Phase 1: Bengaluru Pilot</h3>
+                        <p class="mt-2 text-gray-300 text-base">Launch in Koramangala & Indiranagar. Onboard top 30 venues & partner with local influencers.</p>
                     </div>
                     <div class="card fade-in fade-in-delay-2">
-                        <h3 class="text-xl font-bold">Phase 2: Metro Expansion</h3>
-                        <p class="mt-2 text-gray-300">Replicate the successful Bengaluru model in other major cities like Mumbai, Delhi, and Goa, leveraging our initial data and learnings.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Phase 2: Metro Expansion</h3>
+                        <p class="mt-2 text-gray-300 text-base">Replicate the model in Mumbai, Delhi, and Goa, leveraging initial data and learnings.</p>
                     </div>
                      <div class="card fade-in fade-in-delay-3">
-                        <h3 class="text-xl font-bold">Phase 3: National Scale</h3>
-                        <p class="mt-2 text-gray-300">Achieve network effects by becoming the default platform for nightlife discovery and booking across all Tier-1 and Tier-2 cities in India.</p>
+                        <h3 class="text-lg sm:text-xl font-bold">Phase 3: National Scale</h3>
+                        <p class="mt-2 text-gray-300 text-base">Become the default platform for nightlife discovery across all Tier-1 and Tier-2 cities.</p>
                     </div>
                 </div>
             </div>
@@ -272,24 +288,24 @@
         <!-- Slide 7: Business Model -->
         <section class="slide" id="slide-7">
              <div>
-                <h2 class="fade-in">Multiple <span class="highlight">Revenue Streams.</span></h2>
-                <p class="text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">We will monetize through a balanced B2B and B2C model.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">Multiple <span class="highlight">Revenue Streams.</span></h2>
+                <p class="text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">We will monetize through a balanced B2B and B2C model.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8 sm:mt-12">
                     <div class="card text-center fade-in fade-in-delay-1">
                         <h3 class="font-bold text-lg">Ticket Convenience Fee</h3>
                         <p class="text-sm text-gray-400 mt-2">A small percentage fee on each event ticket sold through the platform.</p>
                     </div>
                     <div class="card text-center fade-in fade-in-delay-2">
                         <h3 class="font-bold text-lg">Venue Subscriptions (SaaS)</h3>
-                        <p class="text-sm text-gray-400 mt-2">A monthly fee for venues to access premium features like analytics, promotion tools, and "Live Vibe" dashboard.</p>
+                        <p class="text-sm text-gray-400 mt-2">A monthly fee for venues to access premium features like analytics and promotion tools.</p>
                     </div>
                     <div class="card text-center fade-in fade-in-delay-3">
                         <h3 class="font-bold text-lg">Targeted Promotions</h3>
-                        <p class="text-sm text-gray-400 mt-2">Allowing venues to "boost" their events or profiles to a targeted user demographic within the app.</p>
+                        <p class="text-sm text-gray-400 mt-2">Allowing venues to "boost" their events or profiles to a targeted user demographic.</p>
                     </div>
                     <div class="card text-center fade-in fade-in-delay-4">
                         <h3 class="font-bold text-lg">Booking Commissions</h3>
-                        <p class="text-sm text-gray-400 mt-2">A commission on high-value table bookings and bottle service reservations made via the app.</p>
+                        <p class="text-sm text-gray-400 mt-2">A commission on high-value table bookings and bottle service reservations.</p>
                     </div>
                 </div>
             </div>
@@ -298,21 +314,21 @@
         <!-- Slide 8: The Ask -->
         <section class="slide" id="slide-8">
             <div class="text-center">
-                <h2 class="fade-in">The <span class="highlight">Ask.</span></h2>
-                <p class="text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">We are seeking seed funding to accelerate our product development and launch.</p>
+                <h2 class="fade-in text-3xl sm:text-4xl font-bold tracking-tight">The <span class="highlight">Ask.</span></h2>
+                <p class="text-lg sm:text-xl mt-4 text-gray-400 fade-in fade-in-delay-1">We are seeking seed funding to accelerate our product development and launch.</p>
                 
-                <div class="my-12 fade-in fade-in-delay-2">
-                    <p class="text-6xl font-black tracking-tighter text-white">₹ 1.5 Cr</p>
+                <div class="my-8 sm:my-12 fade-in fade-in-delay-2">
+                    <p class="text-5xl sm:text-6xl font-black tracking-tighter text-white">₹ 1.5 Cr</p>
                     <p class="text-lg text-gray-400">Seed Funding</p>
                 </div>
 
                 <div class="flex justify-center fade-in fade-in-delay-3">
                     <div class="w-full max-w-2xl">
-                        <h3 class="text-xl font-bold mb-4">Allocation of Funds</h3>
-                        <div class="w-full bg-gray-700 rounded-full h-6 flex overflow-hidden">
-                            <div class="flex flex-col justify-center overflow-hidden bg-indigo-500 text-xs text-white text-center" style="width:50%" role="progressbar">Product Dev (50%)</div>
-                            <div class="flex flex-col justify-center overflow-hidden bg-purple-500 text-xs text-white text-center" style="width:30%" role="progressbar">Marketing (30%)</div>
-                            <div class="flex flex-col justify-center overflow-hidden bg-pink-500 text-xs text-white text-center" style="width:20%" role="progressbar">Team (20%)</div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-4">Allocation of Funds</h3>
+                        <div class="w-full bg-gray-700 rounded-full h-6 flex overflow-hidden text-xs sm:text-sm">
+                            <div class="flex items-center justify-center overflow-hidden bg-indigo-500 text-white text-center" style="width:50%" role="progressbar">Product Dev (50%)</div>
+                            <div class="flex items-center justify-center overflow-hidden bg-purple-500 text-white text-center" style="width:30%" role="progressbar">Marketing (30%)</div>
+                            <div class="flex items-center justify-center overflow-hidden bg-pink-500 text-white text-center" style="width:20%" role="progressbar">Team (20%)</div>
                         </div>
                     </div>
                 </div>
@@ -322,8 +338,8 @@
         <!-- Slide 9: Thank You -->
         <section class="slide" id="slide-9">
              <div class="text-center">
-                <h1 class="fade-in">Let's Redefine <span class="highlight">Nightlife.</span></h1>
-                <p class="tagline fade-in fade-in-delay-1">Thank You.</p>
+                <h1 class="fade-in text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter">Let's Redefine <span class="highlight">Nightlife.</span></h1>
+                <p class="tagline fade-in fade-in-delay-1 text-lg sm:text-xl">Thank You.</p>
                 <div class="mt-8 fade-in fade-in-delay-2">
                     <p class="text-lg">Ajay & Azariush</p>
                     <p class="text-gray-400">Founder & CEO, ClubTok</p>
@@ -350,33 +366,28 @@
             const totalSlides = slides.length;
 
             function showSlide(index) {
-                // Remove active class and animations from all slides
+                // Remove active class from all slides
                 slides.forEach(slide => {
                     slide.classList.remove('active');
-                    // Reset animations by removing and re-adding fade-in classes
-                    const animatedElements = slide.querySelectorAll('[class*="fade-in"]');
-                    animatedElements.forEach(el => {
-                        el.style.animation = 'none';
-                        el.offsetHeight; // Trigger reflow
-                        el.style.animation = null; 
-                    });
                 });
                 
-                // Add active class to the current slide
-                slides[index].classList.add('active');
+                const current = slides[index];
+                current.classList.add('active');
 
-                // Update UI elements
+                // Reset and trigger animations for elements in the current slide
+                const animatedElements = current.querySelectorAll('[class*="fade-in"]');
+                animatedElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; // Trigger reflow to restart animation
+                    el.style.animation = ''; 
+                });
+
                 updateUI(index);
             }
 
             function updateUI(index) {
-                // Update counter
                 slideCounter.textContent = `${index + 1} / ${totalSlides}`;
-                
-                // Update progress bar
                 progressBar.style.width = `${((index + 1) / totalSlides) * 100}%`;
-
-                // Show/hide nav buttons
                 prevBtn.style.display = index === 0 ? 'none' : 'block';
                 nextBtn.style.display = index === totalSlides - 1 ? 'none' : 'block';
             }
@@ -395,7 +406,6 @@
                 }
             });
 
-            // Keyboard navigation
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
                     nextBtn.click();
@@ -404,9 +414,9 @@
                 }
             });
 
-            // Initial setup
             showSlide(currentSlide);
         });
     </script>
 </body>
 </html>
+
